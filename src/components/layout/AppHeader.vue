@@ -2,7 +2,7 @@
   <div class="AppHeader">
     <GridContainer>
       <GridRow align-items="center">
-        <GridColumn xs="3">
+        <GridColumn xs="md-3">
           <RouterLink to="/" class="AppHeader__logo">
             <AppLogo />
           </RouterLInk>
@@ -37,7 +37,7 @@ export default {
     handleSearch(searchTerm) {
       if (searchTerm !== this.$route.query.search) {
         this.$router.push({
-          name: "dashboard",
+          name: "DashBoard",
           query: { ...this.$route.query, search: searchTerm || undefined }
         });
       }

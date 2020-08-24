@@ -64,7 +64,7 @@ export default {
   &__input {
     width: 100%;
     background: transparent;
-    border: none;
+    border: 1px solid gray;
     height: 40px;
     padding: 0 10px 0 33px;
     outline: 0;
@@ -74,6 +74,16 @@ export default {
       border: 1px solid #d4d4d4;
       border-radius: 3px;
       background: map-get($colors, "light-gb-green");
+    }
+  }
+  @media (max-width: $breakpoint-tablet) {
+    margin: 10px auto;
+    text-align: center;
+    &__input {
+      width: 75%;
+    }
+    &__searchIcon {
+      display: none;
     }
   }
 }
