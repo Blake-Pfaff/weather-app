@@ -1,14 +1,18 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import DashBoard from "../views/DashBoard.vue";
+import * as Views from "../views";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
     name: "DashBoard",
-    component: DashBoard,
+    path: "/",
+    component: Views.DashBoard,
+  },
+  {
+    path: "*",
+    redirect: "/",
   },
 ];
 

@@ -1,28 +1,27 @@
 <template>
-  <div>
-    <GridContainer fluid>
-      <GridRow>
-        <GridColumn xs="auto">test</GridColumn>
-
-        <GridColumn xs="auto">test</GridColumn>
-
-        <GridColumn xs="auto">test</GridColumn>
-      </GridRow>
+  <div class="DashBoard">
+    <GridContainer>
+      <AppHeader />
     </GridContainer>
   </div>
 </template>
 
 <script>
-import { GridRow, GridColumn, GridContainer } from "@/components";
+import AppHeader from "@/components/layout/AppHeader";
+import { GridContainer } from "@/components";
 
 export default {
   name: "DashBaord",
   components: {
-    GridRow,
-    GridColumn,
+    AppHeader,
     GridContainer
   }
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+@import "@/styles/_variables";
+.DashBoard {
+  background-color: map-get($colors, "gb-green");
+}
+</style>
