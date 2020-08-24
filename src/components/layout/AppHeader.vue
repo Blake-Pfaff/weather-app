@@ -5,7 +5,7 @@
         <GridColumn xs="md-3">
           <RouterLink to="/" class="AppHeader__logo">
             <AppLogo />
-          </RouterLInk>
+          </RouterLink>
         </GridColumn>
         <GridColumn>
           <SearchBar @on-search="handleSearch" />
@@ -21,7 +21,7 @@ import {
   GridColumn,
   GridContainer,
   AppLogo,
-  SearchBar
+  SearchBar,
 } from "@/components";
 
 export default {
@@ -31,19 +31,27 @@ export default {
     GridColumn,
     GridContainer,
     AppLogo,
-    SearchBar
+    SearchBar,
   },
   methods: {
     handleSearch(searchTerm) {
       if (searchTerm !== this.$route.query.search) {
         this.$router.push({
           name: "DashBoard",
-          query: { ...this.$route.query, search: searchTerm || undefined }
+          query: { ...this.$route.query, search: searchTerm || undefined },
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.AppHeader {
+  &__logo {
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+</style>
