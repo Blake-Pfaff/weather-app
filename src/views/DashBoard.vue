@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import { GridRow, GridColumn, GridContainer } from "@/components/ui";
+import { GridRow, GridColumn, GridContainer } from "@/components";
 
 export default {
   name: "DashBaord",
@@ -25,5 +25,4 @@ export default {
 };
 </script>
 
-<style>
-</style>
+<style></style>
