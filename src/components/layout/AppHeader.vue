@@ -21,7 +21,8 @@ import {
   GridColumn,
   GridContainer,
   AppLogo,
-  SearchBar
+  SearchBar,
+  RouterLink,
 } from "@/components";
 
 export default {
@@ -31,18 +32,19 @@ export default {
     GridColumn,
     GridContainer,
     AppLogo,
-    SearchBar
+    SearchBar,
+    RouterLink,
   },
   methods: {
     handleSearch(searchTerm) {
       if (searchTerm !== this.$route.query.search) {
         this.$router.push({
           name: "DashBoard",
-          query: { ...this.$route.query, search: searchTerm || undefined }
+          query: { ...this.$route.query, search: searchTerm || undefined },
         });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

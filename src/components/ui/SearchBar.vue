@@ -21,11 +21,11 @@ export default {
   name: "SearchBar",
   data() {
     return {
-      searchTerm: ""
+      searchTerm: "",
     };
   },
   components: {
-    AppIcon
+    AppIcon,
   },
   methods: {
     handleIconClick() {
@@ -36,11 +36,11 @@ export default {
     },
     setup() {
       this.searchTerm = this.$route.query.search || "";
-    }
+    },
   },
   mounted() {
     this.setup();
-  }
+  },
 };
 </script>
 
