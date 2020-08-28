@@ -8,18 +8,18 @@ const routes = [
   {
     name: "DashBoard",
     path: "/",
-    component: Views.DashBoard,
+    component: Views.DashBoard
   },
   {
     path: "*",
-    redirect: "/",
-  },
+    redirect: "/"
+  }
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes,
+  routes
 });
 
 export default router;

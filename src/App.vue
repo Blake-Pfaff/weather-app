@@ -1,4 +1,3 @@
-
 <template>
   <div class="App">
     <link
@@ -17,5 +16,4 @@ export default {
 };
 </script>
 
-<style lang="scss" src="@/styles/app.scss" >
-</style>
+<style lang="scss" src="@/styles/app.scss"></style>
