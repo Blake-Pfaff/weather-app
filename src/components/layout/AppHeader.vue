@@ -2,13 +2,16 @@
   <div class="AppHeader">
     <GridContainer>
       <GridRow align-items="center">
-        <GridColumn xs="md-3">
+        <GridColumn xs="md-4">
           <RouterLink to="/" class="AppHeader__logo">
             <AppLogo />
           </RouterLink>
         </GridColumn>
-        <GridColumn>
+        <GridColumn xs="md-4">
           <SearchBar @on-search="handleSearch" />
+        </GridColumn>
+        <GridColumn>
+          <WeatherButton xs="md-4" />
         </GridColumn>
       </GridRow>
     </GridContainer>
@@ -22,7 +25,7 @@ import {
   GridContainer,
   AppLogo,
   SearchBar,
-  RouterLink,
+  WeatherButton,
 } from "@/components";
 
 export default {
@@ -33,7 +36,7 @@ export default {
     GridContainer,
     AppLogo,
     SearchBar,
-    RouterLink,
+    WeatherButton,
   },
   methods: {
     handleSearch(searchTerm) {
