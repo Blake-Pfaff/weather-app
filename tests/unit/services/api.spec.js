@@ -49,6 +49,6 @@ describe("Weather Service", () => {
 
   it("returns weather data from fetchWeatherByZip", async () => {
     const payload = await weather.fetchWeatherByZip(60611);
-    expect(payload.weather.id).toBe(500);
+    expect(payload.weather[0].id).toBe(500);
   });
 });

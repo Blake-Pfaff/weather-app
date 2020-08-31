@@ -12,12 +12,11 @@ const API_KEY = process.env.VUE_APP_API_KEY;
  * @return Object
  */
 const weatherService = {
-  async fetchWeatherByZip(zip) {
-    if (!zip) throw new Error("Zip is required");
-    const url = `https://api.openweathermap.org/data/2.5/weather?zip=${zip},us&appid=${API_KEY}`;
+  async fetchWeatherByZip(searchTerm) {
+    if (!searchTerm) throw new Error("Zip is required");
+    const url = `https://api.openweathermap.org/data/2.5/weather?zip=${searchTerm},us&appid=${API_KEY}`;
     const request = await fetch(url);
     const payload = await request.json();
-    console.log(payload);
     return payload;
   },
 };

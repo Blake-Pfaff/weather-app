@@ -4,13 +4,17 @@
       <AppIcon icon="search" />
     </div>
     <input
-      v-model="searchTerm"
+      :value="searchTerm"
       ref="input"
       :class="`SearchBar__input`"
-      :type="`search`"
+      :type="`text`"
       :placeholder="`Enter your Zip Code`"
-      @search="handleSearch"
+      @input="handleInput"
+      @keyup.enter="handleSearch"
     />
+    <button class="SearchBar__clear" type="button" @click="handleClear">
+      &times;
+    </button>
   </div>
 </template>
 
@@ -19,10 +23,12 @@ import AppIcon from "@/components/ui/AppIcon.vue";
 
 export default {
   name: "SearchBar",
-  data() {
-    return {
-      searchTerm: "",
-    };
+  props: {
+    searchTerm: {
+      type: String,
+      required: false,
+      default: "",
+    },
   },
   components: {
     AppIcon,
@@ -32,14 +38,14 @@ export default {
       this.$refs.input.focus();
     },
     handleSearch() {
-      this.$emit("on-search", this.searchTerm);
+      this.$emit("on-search");
     },
-    setup() {
-      this.searchTerm = this.$route.query.search || "";
+    handleInput(event) {
+      this.$emit("on-change", event.target.value);
     },
-  },
-  mounted() {
-    this.setup();
+    handleClear() {
+      this.$emit("on-change", "");
+    },
   },
 };
 </script>

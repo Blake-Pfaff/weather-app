@@ -1,22 +1,16 @@
 import SearchBar from "@/components/ui/SearchBar";
 import { shallowMount } from "@vue/test-utils";
+
 describe("SearchBar.vue", () => {
-  it("it keeps track of the user text in a reactive variable", async () => {
-    const wrapper = shallowMount(SearchBar, {
-      mocks: {
-        $route: {
-          path: "/",
-          query: {
-            search: "test text",
-          },
-        },
-      },
-    });
-    const userInput = "Some Search Text";
+  it("it emits an on-change event when the input changes", async () => {
+    const wrapper = shallowMount(SearchBar);
     const input = wrapper.find(".SearchBar__input");
-    await input.setValue(userInput);
-    expect(wrapper.vm.searchTerm).toBe(userInput);
+    input.element.value = "123";
+    input.trigger("input");
+    await wrapper.vm.$nextTick();
+    expect(wrapper.emitted()["on-change"]).toBeTruthy();
   });
+
   it("it emits an on-search event when the input is searched on", async () => {
     const wrapper = shallowMount(SearchBar, {
       mocks: {
@@ -30,9 +24,20 @@ describe("SearchBar.vue", () => {
     });
     await wrapper.vm.$nextTick();
     const input = wrapper.find(".SearchBar__input");
-    input.trigger("search");
+    input.trigger("keyup.enter");
     await wrapper.vm.$nextTick();
     expect(wrapper.emitted()["on-search"]).toBeTruthy();
-    expect(wrapper.emitted()["on-search"][0][0]).toEqual("TEST");
+  });
+
+  it("clears the input when the button is clicked", async () => {
+    const wrapper = shallowMount(SearchBar, {
+      propsData: {
+        searchTerm: "TEST",
+      },
+    });
+    const btn = wrapper.find(".SearchBar__clear");
+    btn.trigger("click");
+    await wrapper.vm.$nextTick();
+    expect(wrapper.emitted()["on-change"]).toBeTruthy();
   });
 });

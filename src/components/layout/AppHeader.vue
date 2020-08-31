@@ -8,13 +8,18 @@
           </RouterLink>
         </GridColumn>
         <GridColumn xs="md-4">
-          <SearchBar @on-search="handleSearch" />
+          <SearchBar
+            :search-term="searchTerm"
+            @on-change="handleSearchTermChange"
+            @on-search="fetchWeatherByZip"
+          />
         </GridColumn>
         <GridColumn>
-          <WeatherButton xs="md-4" @fetchWeather="fetchWeatherByZip(searchTerm)" />
+          <WeatherButton xs="md-4" @fetchWeather="fetchWeatherByZip" />
         </GridColumn>
       </GridRow>
     </GridContainer>
+    <pre v-text="weatherData" />
   </div>
 </template>
 
@@ -25,7 +30,7 @@ import {
   GridContainer,
   AppLogo,
   SearchBar,
-  WeatherButton
+  WeatherButton,
 } from "@/components";
 
 import { API } from "@/services";
@@ -34,7 +39,8 @@ export default {
   name: "AppHeader",
   data() {
     return {
-      searchTerm: 60156
+      weatherData: {},
+      searchTerm: "",
     };
   },
   components: {
@@ -43,32 +49,21 @@ export default {
     GridContainer,
     AppLogo,
     SearchBar,
-    WeatherButton
+    WeatherButton,
   },
   methods: {
-    async handleSearch(searchTerm) {
-      if (searchTerm !== this.$route.query.search) {
-        this.$router.push({
-          name: "DashBoard",
-          query: { ...this.$route.query, search: searchTerm || undefined }
-        });
-        alert();
-
-        const zip = this.searchTerm;
-
-        console.log(zip);
-        await API.fetchWeatherByZip(zip);
+    async fetchWeatherByZip() {
+      try {
+        const data = await API.fetchWeatherByZip(this.searchTerm);
+        this.weatherData = data;
+      } catch (error) {
+        alert(error.message);
       }
     },
-    fetchWeatherByZip() {
-      console.log(this.searchTerm);
-      if (this.searchTerm === isNaN()) {
-        console.log("nope");
-      } else {
-        console.log("yup");
-      }
-    }
-  }
+    handleSearchTermChange(value) {
+      this.searchTerm = value;
+    },
+  },
 };
 </script>
 
