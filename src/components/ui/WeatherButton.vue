@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button>
+    <button @click="handleClick">
       <AppIcon icon="sun-o" />
     </button>
   </div>
@@ -11,8 +11,13 @@ import { AppIcon } from "@/components/ui";
 export default {
   name: "WeatherButton",
   components: {
-    AppIcon,
+    AppIcon
   },
+  methods: {
+    handleClick() {
+      this.$emit("fetchWeather");
+    }
+  }
 };
 </script>
 

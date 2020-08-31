@@ -1,5 +1,5 @@
 // tests/services/weather.spec.js
-import weather from "@/services/weather";
+import weather from "@/services/api";
 
 // Fake data
 const fakeResponse = {

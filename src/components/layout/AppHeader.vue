@@ -11,7 +11,7 @@
           <SearchBar @on-search="handleSearch" />
         </GridColumn>
         <GridColumn>
-          <WeatherButton xs="md-4" />
+          <WeatherButton xs="md-4" @fetchWeather="fetchWeatherByZip(searchTerm)" />
         </GridColumn>
       </GridRow>
     </GridContainer>
@@ -25,29 +25,50 @@ import {
   GridContainer,
   AppLogo,
   SearchBar,
-  WeatherButton,
+  WeatherButton
 } from "@/components";
+
+import { API } from "@/services";
 
 export default {
   name: "AppHeader",
+  data() {
+    return {
+      searchTerm: 60156
+    };
+  },
   components: {
     GridRow,
     GridColumn,
     GridContainer,
     AppLogo,
     SearchBar,
-    WeatherButton,
+    WeatherButton
   },
   methods: {
-    handleSearch(searchTerm) {
+    async handleSearch(searchTerm) {
       if (searchTerm !== this.$route.query.search) {
         this.$router.push({
           name: "DashBoard",
-          query: { ...this.$route.query, search: searchTerm || undefined },
+          query: { ...this.$route.query, search: searchTerm || undefined }
         });
+        alert();
+
+        const zip = this.searchTerm;
+
+        console.log(zip);
+        await API.fetchWeatherByZip(zip);
       }
     },
-  },
+    fetchWeatherByZip() {
+      console.log(this.searchTerm);
+      if (this.searchTerm === isNaN()) {
+        console.log("nope");
+      } else {
+        console.log("yup");
+      }
+    }
+  }
 };
 </script>
 
