@@ -56,13 +56,30 @@ export default {
 .SearchBar {
   position: relative;
 
+  input {
+    border: 1px solid map-get($colors, "dark-gb-green");
+    border-radius: 5px;
+  }
   ::placeholder {
     color: map-get($colors, "dark-gb-green");
   }
 
+  &__clear {
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background: transparent;
+    border: 0px;
+    outline: none;
+    &:focus {
+      outline: none;
+    }
+  }
+
   &__searchIcon {
     position: absolute;
-    top: 8px;
+    top: 10px;
     left: 10px;
     cursor: pointer;
   }
@@ -72,15 +89,8 @@ export default {
     background: transparent;
     border: 1px solid gray;
     height: 40px;
-    padding: 0 10px 0 33px;
+    padding: 21px 10px 21px 33px;
     outline: 0;
-
-    &:focus {
-      outline: 0;
-      border: 1px solid #d4d4d4;
-      border-radius: 3px;
-      background: map-get($colors, "light-gb-green");
-    }
   }
   @media (max-width: $breakpoint-tablet) {
     margin: 10px auto;
@@ -90,6 +100,9 @@ export default {
     }
     &__searchIcon {
       display: none;
+    }
+    &__clear {
+      right: 70px;
     }
   }
 }

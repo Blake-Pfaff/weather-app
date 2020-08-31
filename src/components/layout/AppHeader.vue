@@ -7,15 +7,15 @@
             <AppLogo />
           </RouterLink>
         </GridColumn>
-        <GridColumn xs="md-4">
+        <GridColumn xs="md-5">
           <SearchBar
             :search-term="searchTerm"
             @on-change="handleSearchTermChange"
             @on-search="fetchWeatherByZip"
           />
         </GridColumn>
-        <GridColumn>
-          <WeatherButton xs="md-4" @fetchWeather="fetchWeatherByZip" />
+        <GridColumn xs="md-3">
+          <WeatherButton @fetchWeather="fetchWeatherByZip" />
         </GridColumn>
       </GridRow>
     </GridContainer>
