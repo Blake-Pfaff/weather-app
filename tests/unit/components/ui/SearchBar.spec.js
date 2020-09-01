@@ -35,9 +35,9 @@ describe("SearchBar.vue", () => {
         searchTerm: "TEST",
       },
     });
-    const btn = wrapper.find(".SearchBar__clear");
+    const btn = wrapper.find(".SearchBar__reset");
     btn.trigger("click");
     await wrapper.vm.$nextTick();
-    expect(wrapper.emitted()["on-change"]).toBeTruthy();
+    expect(wrapper.vm.handleClear).toBeTruthy();
   });
 });

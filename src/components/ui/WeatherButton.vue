@@ -9,6 +9,8 @@
 
 <script>
 import { AppIcon } from "@/components/ui";
+import EventBus from "@/events/bus";
+
 export default {
   name: "WeatherButton",
   components: {
@@ -16,7 +18,7 @@ export default {
   },
   methods: {
     handleClick() {
-      this.$emit("fetchWeather");
+      EventBus.$emit("fetchWeather");
     },
   },
 };
