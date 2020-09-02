@@ -15,7 +15,15 @@
       </GridContainer>
     </AppHeader>
     <div class="DashBoard__weather">
-      <WeatherInfo :weather="weatherData" />
+      <div v-if="noSelection" class="waiting">
+        <img src="/images/logo.png" alt="logo" />
+      </div>
+      <p v-if="loading">Loading ...</p>
+      <WeatherInfo
+        WeatherInfo
+        v-if="weatherIsLoaded && !loading && !noSelection"
+        :weather="weatherData"
+      />
     </div>
   </div>
 </template>
@@ -36,7 +44,9 @@ export default {
   name: "DashBaord",
   data() {
     return {
-      weatherData: {}
+      loading: false,
+      weatherData: {},
+      noSelection: true
     };
   },
   components: {
@@ -51,11 +61,20 @@ export default {
   methods: {
     async fetchWeatherByZip(zip) {
       try {
+        this.loading = true;
         const data = await API.fetchWeatherByZip(zip);
         this.weatherData = data;
       } catch (error) {
         alert(error.message);
+      } finally {
+        this.noSelection = false;
+        this.loading = false;
       }
+    }
+  },
+  computed: {
+    weatherIsLoaded() {
+      return Object.keys(this.weatherData).length > 0;
     }
   }
 };
@@ -64,6 +83,15 @@ export default {
 <style lang="scss" scoped>
 @import "@/styles/_variables";
 .DashBoard {
+  &__weather {
+    .waiting {
+      text-align: center;
+      img {
+        max-height: 500px;
+        max-width: 500px;
+      }
+    }
+  }
 }
 .AppHeader {
   background-color: map-get($colors, "gb-green");

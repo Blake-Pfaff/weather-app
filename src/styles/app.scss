@@ -14,7 +14,7 @@
 
 // Application Styles
 body {
-  background-color: map-get($colors, "background");
+  background-color: map-get($colors, "light-gb-green");
   font-family: $body-font-family;
   color: map-get($colors, "dark-gb-green");
 }

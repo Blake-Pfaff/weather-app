@@ -1,19 +1,25 @@
 <template>
   <div v-if="weather" class="WeatherInfo">
-    <h1>Looking like {{ currentConditions }} skies {{ currentTimeOfDay }} in {{ city }}</h1>
-    <h2>{{ toFahrenheit }} degrees currently</h2>
-    <img :src="imgUrl" />
-    <pre v-text="weather" />
+    <h1>
+      Looking like {{ currentConditions }} {{ currentTimeOfDay }} in
+      {{ city }}
+    </h1>
+    <h2>{{ currentTemp }} degrees currently</h2>
+    <p>(But it feels more like {{ feelsLike }} {{ weatherExcitment }})</p>
+    <h3>current humidity {{ weather.main.humidity }}%</h3>
+    <h4>Sun rise: {{ sunRise }}</h4>
+    <h4>Sun Set: {{ sunSet }}</h4>
+    <div>
+      <span>Sky be looking like:</span>
+      <img :src="imgUrl" />
+    </div>
   </div>
 </template>
 <script>
+import moment from "moment";
 export default {
   name: "WeatherInfo",
-  data() {
-    return {
-      publicPath: process.env.BASE_URL
-    };
-  },
+
   props: {
     weather: {
       type: Object,
@@ -21,7 +27,27 @@ export default {
       default: () => ({})
     }
   },
+  methods: {
+    convertTime(time) {
+      return moment(time * 1000).format("LT");
+    },
+    toFahrenheit(kelvinTemp) {
+      // Prompting the user to enter today's Kelvin temperature
+      const kelvin = kelvinTemp;
+      // Celsius is 273 degrees less than Kelvin
+      const celsius = kelvin - 273;
+      // Calculating Fahrenheit temperature to the nearest integer
+      let fahrenheit = Math.floor(celsius * (9 / 5) + 32);
+      return fahrenheit;
+    }
+  },
   computed: {
+    sunRise() {
+      return this.convertTime(this.weather.sys.sunrise);
+    },
+    sunSet() {
+      return this.convertTime(this.weather.sys.sunset);
+    },
     imgUrl() {
       return `/images/${this.weather.weather[0].icon}.png`;
     },
@@ -32,16 +58,22 @@ export default {
       return this.weather.name;
     },
     currentConditions() {
-      return this.weather.weather[0].main;
+      return this.weather.weather[0].description;
     },
-    toFahrenheit() {
-      // Prompting the user to enter today's Kelvin temperature
-      const kelvin = this.weather.main.temp;
-      // Celsius is 273 degrees less than Kelvin
-      const celsius = kelvin - 273;
-      // Calculating Fahrenheit temperature to the nearest integer
-      let fahrenheit = Math.floor(celsius * (9 / 5) + 32);
-      return fahrenheit;
+    currentTemp() {
+      return this.toFahrenheit(this.weather.main.temp);
+    },
+    feelsLike() {
+      return this.toFahrenheit(this.weather.main.feels_like);
+    },
+    weatherExcitment() {
+      if (this.feelsLike <= 32) {
+        return "better bundle up";
+      } else if (this.feelsLike >= 33 && this.feelsLike < 102) {
+        return "not to bad";
+      } else {
+        return "Welp.... should probably brace for the worst";
+      }
     },
     currentTimeOfDay() {
       const hr = new Date().getHours(); //get hours of the day in 24Hr format (0-23)
@@ -51,4 +83,9 @@ export default {
   }
 };
 </script>
-<style></style>
+<style lang="scss" scoped>
+@import "@/styles/_variables";
+.WeatherInfo {
+  text-align: center;
+}
+</style>

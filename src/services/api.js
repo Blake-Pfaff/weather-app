@@ -17,6 +17,9 @@ const weatherService = {
     const url = `https://api.openweathermap.org/data/2.5/weather?zip=${searchTerm},us&appid=${API_KEY}`;
     const request = await fetch(url);
     const payload = await request.json();
+    if (payload.cod === "404") {
+      throw new Error("Invalid Zipcode");
+    }
     return payload;
   },
 };
