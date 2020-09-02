@@ -25,6 +25,7 @@
         :weather="weatherData"
       />
     </div>
+    <div>{{ weatherData }}</div>
   </div>
 </template>
 
