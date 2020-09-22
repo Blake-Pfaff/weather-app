@@ -89,6 +89,9 @@ export default {
       img {
         max-height: 500px;
         max-width: 500px;
+        @media (max-width: $breakpoint-tablet) {
+          max-width: 300px;
+        }
       }
     }
   }
